@@ -1,0 +1,19 @@
+name: Issues
+on: issues
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment on issue
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issueComment = context.payload.comment.body;
+            const issueNumber = context.payload.issue.number;
+            console.log(`New comment on issue #${issueNumber}: ${issueComment}`);
+            await github.issues.createComment({
+              ...context.repo,
+              issue_number: issueNumber,
+              body: `Thanks for your comment! You said: "${issueComment}"`
+            });
