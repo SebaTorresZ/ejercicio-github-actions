@@ -2,18 +2,22 @@ name: Build
 on: push
 jobs:
   lint:
+    name: Run ESLint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      # Check out the repository
+      - uses: actions/checkout@v1
+
+      # Install Node.js
+      - uses: actions/setup-node@v1
         with:
-          node-version: "18"
-      - name: Install dependencies
-        run: npm ci
-      - name: Run linter
-        run: eslint --ext .jsx --fix src
+          node-version: 12
+
+      # Install your dependencies
+      - run: npm ci
+
+      # Run ESLint
+      - uses: eslint/github-action@v0
   test:
     needs: lint
     runs-on: ubuntu-latest
