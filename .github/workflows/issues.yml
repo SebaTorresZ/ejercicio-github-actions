@@ -3,16 +3,13 @@ on:
   issues:
     types: [opened]
 jobs:
-  saludar:
+  mostrar-evento:
     runs-on: ubuntu-latest
     steps:
-      - name: Enviar comentario de bienvenida
-        uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '👋 ¡Gracias por abrir este issue! Lo revisaremos pronto.'
-            })
+      - name: Mostrar información del issue
+        run: |
+          echo "Título: ${{ github.event.issue.title }}"
+          echo "Número: ${{ github.event.issue.number }}"
+          echo "Autor: ${{ github.event.issue.user.login }}"
+          echo "Body:"
+          echo "${{ github.event.issue.body }}"
