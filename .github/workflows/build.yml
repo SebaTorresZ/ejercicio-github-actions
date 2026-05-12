@@ -13,8 +13,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run linter
-        uses: eslint/eslint-github-action@v3
+        uses: eslint/github-action@v3
   test:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Get code
